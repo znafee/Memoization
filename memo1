@@ -1,0 +1,76 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class memooization {
+
+    public static void main(String [] args) throws FileNotFoundException {
+
+        int n = 1000000;
+        int limit = 5000;
+
+        //iterative square method
+        long startTime = System.currentTimeMillis();
+
+        for(int i = 0; i <= limit-1 ; i++){
+            System.out.println( i+ ". " + square(n));
+        }
+
+        long stopTime = System.currentTimeMillis();
+        long reactionTime1 = stopTime - startTime;
+
+        int[] cache = new int[n+1];
+        //memo square method
+        startTime = System.currentTimeMillis();
+
+        for(int i = 0; i <= limit-1 ; i++){
+            System.out.println( i+ ". " + mSquare(n,cache));
+        }
+
+        stopTime = System.currentTimeMillis();
+        long reactionTime3 = stopTime - startTime;
+
+
+        System.out.println("non-memoized time");
+        System.out.println(reactionTime1/1000.0 + " seconds");
+        System.out.println("Memoized time");
+        System.out.println(reactionTime3/1000.0 + " seconds");
+
+    }
+
+
+    public static int square(int n){
+
+        int result = 0;
+        for(int i = 1; i<=n; i++){
+           for(int j=1 ; j<=n ; j++) {
+               result += 1;
+           }
+        }
+
+        return result;
+
+    }
+
+
+    public static int mSquare(int n,int[] cache){
+        if(cache[n] != 0){
+            return cache[n];
+        }
+
+        int result = 0;
+        for(int i = 1; i<=n; i++){
+            for(int j=1 ; j<=n ; j++) {
+                result += 1;
+            }
+        }
+        if(cache[n] == 0) {
+            cache[n] = result;
+        }
+       // System.out.println(cache[n] + "debug");
+        return result;
+
+    }
+}
